@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 19:54:05 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/21 11:24:44 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/21 12:09:01 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,14 @@ int ft_bigelem(t_list *list)
 {
 	int		bigger;
 	t_elem	*elem;
+	int		len;
 
 	bigger = 0;
 	while (list)
 	{
 		elem = (t_elem *)list->content;
-		if (ft_strlen(elem->name) > bigger)
+		len = ft_strlen(elem->name);
+		if (len > bigger)
 			bigger = ft_strlen(elem->name);
 		list = list->next;
 	}
@@ -196,11 +198,44 @@ void ft_catch(int sig)
 	ft_darw(g_params);
 }
 
+void ft_remove(t_params *params)
+{
+	t_list	*list;
+	t_list	*new;
+	int		i;
+	t_list	*node;
+
+	i = 1;
+	new = NULL;
+	list = params->list;
+	while (list)
+	{
+		if (i == params->pos)
+		{
+			free(list->content);
+		}
+		else
+		{
+			node = ft_lstnew(NULL, 0);
+			node->content = list->content;
+			ft_lstadd(&new, node);
+			free(list);
+		}
+		i++;
+		list = list->next;
+	}
+	if (!new)
+		ft_exit(params);
+	params->pos = 1;
+	params->list = ft_lstrev(new);
+}
+
 int main(int argc, char **argv)
 {
-	t_list		*list;
 	t_elem		*elem;
 	
+	if (argc < 2)
+		exit(0);
 	signal(SIGWINCH, ft_catch);
 	signal(SIGCONT, ft_catch);
 	setup();
@@ -209,20 +244,20 @@ int main(int argc, char **argv)
 		g_params->fd_out = open("/dev/tty", O_WRONLY);
 		g_params->fd_in = open("/dev/tty", O_RDONLY);
 	}
-	else
-	{
-		g_params->fd_in = 0;
-		g_params->fd_out = 1;
-	}
 	ft_fill(g_params, argv + 1);
 	int key = 0;
 	ft_printf_fd(g_params->fd_out, "%d - %d\n", g_params->fd_in, g_params->fd_out);
 	ft_darw(g_params);
 	while (read(0, &key, 3))
 	{
-		if (key == 27)
+		if (key == 127 || key == DELETE_KEY)
+		{
+			ft_remove(g_params);
+			ft_darw(g_params);
+		}
+		else if (key == 27)
 			ft_exit(g_params);
-		if (key == ' ')
+		else if (key == ' ')
 		{
 			elem = (t_elem *)g_params->selected->content;
 			elem->selected = !elem->selected;
@@ -230,7 +265,7 @@ int main(int argc, char **argv)
 				g_params->pos++;
 			ft_darw(g_params);
 		}
-		if (key == '\n')
+		else if (key == '\n')
 			ft_print(g_params);
 		ft_select(g_params, key);
 		key = 0;

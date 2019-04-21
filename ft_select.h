@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 19:54:17 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/21 11:02:28 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/21 12:08:23 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define C_DOWN 4348699
 # define C_RIGHT 4414235
 # define C_LEFT 4479771
-
+# define DELETE_KEY 3365659
 typedef struct  s_elem
 {
     char    *name;
@@ -38,11 +38,6 @@ typedef struct  s_params
     int         width;
     int         height;
     t_list      *list;
-    char	    *delete;
-	char	    *mv_up;
-	char	    *mv_left;
-	char	    *mv_right;
-	char	    *mv_down;
     char        *s_underline;
     char        *e_underline;
 	char	    *reverse_v;

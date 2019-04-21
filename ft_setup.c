@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 19:41:23 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/21 11:02:20 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/21 11:51:13 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,12 @@ void	ft_setup2(t_params *params)
 
 void	setup(void)
 {
-	int				pos[2];
-
 	g_params = (t_params *)malloc(sizeof(t_params));
 	ft_setup2(g_params);
+	g_params->fd_in = 0;
+	g_params->fd_out = 1;
 	g_params->pos = 1;
 	g_params->selected = NULL;
-	g_params->delete = tgetstr("dl", NULL);
-	g_params->mv_up = tgetstr("up", NULL);
-	g_params->mv_left = tgetstr("le", NULL);
-	g_params->mv_down = tgetstr("do", NULL);
-	g_params->mv_right = tgetstr("nd", NULL);
 	g_params->reverse_v = tgetstr("mr", NULL);
 	g_params->stop_v = tgetstr("me", NULL);
 	g_params->window = tgetstr("ti", NULL);
