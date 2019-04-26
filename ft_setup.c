@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 19:41:23 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/21 11:51:13 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/26 22:49:17 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,30 +23,68 @@ void	ft_config(t_params *params)
 	tcsetattr(0, TCSANOW, &termio);
 }
 
-void	ft_setup2(t_params *params)
+char	*ft_setup2(t_params *params)
 {
 	char			*term;
 	char			buff[2048];
 
-	term = getenv("TERM");
-	tgetent(buff, term);
+	signal(SIGWINCH, ft_catch);
+	signal(SIGCONT, ft_catch);
+	signal(SIGINT, ft_catch);
+	if (!(term = getenv("TERM")))
+	{
+		ft_printf_fd(2, "TERM variable not set");
+		exit(1);
+	}
+	if (!(tgetent(buff, term)))
+	{
+		ft_printf_fd(2, "cannot get Terminal: %s capabilities\n", term);
+		exit(0);
+	}
 	ft_config(params);
+	return (term);
 }
 
-void	setup(void)
+void	ft_setup(t_params *params)
 {
-	g_params = (t_params *)malloc(sizeof(t_params));
-	ft_setup2(g_params);
-	g_params->fd_in = 0;
-	g_params->fd_out = 1;
-	g_params->pos = 1;
-	g_params->selected = NULL;
-	g_params->reverse_v = tgetstr("mr", NULL);
-	g_params->stop_v = tgetstr("me", NULL);
-	g_params->window = tgetstr("ti", NULL);
-	g_params->endwindow = tgetstr("ti", NULL);
-	g_params->s_underline = tgetstr("us", NULL);
-	g_params->e_underline = tgetstr("ue", NULL);
-	g_params->hide_cursor = tgetstr("vi", NULL);
-	g_params->show_cursor = tgetstr("ve", NULL);
+	char *term;
+
+	term = ft_setup2(params);
+	params->pos = 1;
+	params->selected = NULL;
+	params->reverse_v = tgetstr("mr", NULL);
+	params->stop_v = tgetstr("me", NULL);
+	params->window = tgetstr("ti", NULL);
+	params->endwindow = tgetstr("ti", NULL);
+	params->s_underline = tgetstr("us", NULL);
+	params->e_underline = tgetstr("ue", NULL);
+	params->hide_cursor = tgetstr("vi", NULL);
+	params->show_cursor = tgetstr("ve", NULL);
+	if (!(params->reverse_v && params->stop_v
+		&& params->window && params->endwindow
+		&& params->s_underline && params->e_underline
+		&& params->hide_cursor && params->show_cursor))
+	{
+		ft_printf_fd(2, "cannot get Terminal: %s capabilities\n", term);
+		exit(0);
+	}
+}
+
+void	ft_fill(t_params *params, char **argv)
+{
+	t_list *lst;
+	t_elem *elem;
+
+	params->list = NULL;
+	while (*argv)
+	{
+		elem = (t_elem *)malloc(sizeof(t_elem));
+		elem->name = ft_strdup(*argv);
+		elem->selected = 0;
+		lst = ft_lstnew(NULL, 0);
+		lst->content = elem;
+		ft_lstadd(&params->list, lst);
+		argv++;
+	}
+	params->list = ft_lstrev(params->list);
 }
