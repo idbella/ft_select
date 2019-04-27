@@ -17,6 +17,7 @@
 # include <termcap.h>
 # include <sys/ioctl.h>
 # include <fcntl.h>
+# include <signal.h>
 # define C_UP 4283163
 # define C_DOWN 4348699
 # define C_RIGHT 4414235

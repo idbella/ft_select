@@ -55,7 +55,7 @@ void	ft_setup(t_params *params)
 	params->reverse_v = tgetstr("mr", NULL);
 	params->stop_v = tgetstr("me", NULL);
 	params->window = tgetstr("ti", NULL);
-	params->endwindow = tgetstr("ti", NULL);
+	params->endwindow = tgetstr("te", NULL);
 	params->s_underline = tgetstr("us", NULL);
 	params->e_underline = tgetstr("ue", NULL);
 	params->hide_cursor = tgetstr("vi", NULL);

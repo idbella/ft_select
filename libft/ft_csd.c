@@ -61,7 +61,6 @@ void	ft_getint(t_printf_params *param)
 void	ft_getchar(t_printf_params *param)
 {
 	char	*str;
-	int		flag;
 	char	*tmp;
 
 	flag = 0;

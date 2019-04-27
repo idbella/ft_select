@@ -21,6 +21,7 @@ void	ft_print(t_params *params)
 	list = params->list;
 	tputs(params->show_cursor, 1, ft_put);
 	tputs(params->endwindow, 1, ft_put);
+	tcsetattr(0, TCSANOW, &params->term);
 	prev = 0;
 	while (list)
 	{
