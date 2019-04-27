@@ -16,25 +16,21 @@ void ft_move(t_params *params, int c)
 {
 	t_elem	*elem;
 
-    if (!ft_init_draw(params))
+    if (ft_init_draw(params))
         return ;
-    if (c == C_UP)
+    if (c == C_UP || c == C_LEFT)
     {
-        if (params->rows == 1)
+        if (params->rows == 1 || c == C_LEFT)
             params->pos--;
-        else
-        {
+        else if (c == C_UP)
             params->pos -= params->rows;
-        }
 	}
-    else if (c == C_DOWN)
+    else if (c == C_DOWN || c == C_RIGHT)
     {
-        if (params->rows == 1)
+        if (params->rows == 1 || c == C_RIGHT)
             params->pos++;
-        else
-        {
+        else if (c == C_DOWN)
             params->pos += params->rows;
-        }
 	}
     else if (c == ' ')
 	{
