@@ -6,13 +6,13 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 19:56:51 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/27 13:17:43 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/27 20:41:05 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-void	ft_move_up(t_params *params, int count)
+static void	ft_move_up(t_params *params, int count)
 {
 	int old_pos;
 
@@ -33,7 +33,7 @@ void	ft_move_up(t_params *params, int count)
 	}
 }
 
-void	ft_move_down(t_params *params, int count)
+static void	ft_move_down(t_params *params, int count)
 {
 	int old_pos;
 
@@ -50,19 +50,19 @@ void	ft_move_down(t_params *params, int count)
 	}
 }
 
-void	ft_move_left(t_params *params)
+static void	ft_move_left(t_params *params)
 {
 	if (params->rows > 1)
 		params->pos--;
 }
 
-void	ft_move_right(t_params *params)
+static void	ft_move_right(t_params *params)
 {
 	if (params->rows > 1)
 		params->pos++;
 }
 
-void	ft_move(t_params *params, int c, int count)
+void		ft_move(t_params *params, int c, int count)
 {
 	t_elem	*elem;
 

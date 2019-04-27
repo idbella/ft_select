@@ -6,13 +6,13 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 19:41:23 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/27 15:45:10 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/27 20:41:34 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-void	ft_config(t_params *params)
+void		ft_config(t_params *params)
 {
 	struct termios	termio;
 
@@ -23,7 +23,7 @@ void	ft_config(t_params *params)
 	tcsetattr(0, TCSANOW, &termio);
 }
 
-char	*ft_setup2(t_params *params)
+static void	ft_setup2(t_params *params)
 {
 	char			*term;
 	char			buff[2048];
@@ -34,23 +34,20 @@ char	*ft_setup2(t_params *params)
 	signal(SIGTSTP, ft_catch);
 	if (!(term = getenv("TERM")))
 	{
-		ft_printf_fd(2, "TERM variable not set");
+		ft_putendl_fd("TERM variable not set", 2);
 		exit(1);
 	}
 	if (!(tgetent(buff, term)))
 	{
-		ft_printf_fd(2, "cannot get Terminal: %s capabilities\n", term);
+		ft_putendl_fd("cannot find Terminal Database", 2);
 		exit(0);
 	}
 	ft_config(params);
-	return (term);
 }
 
-void	ft_setup(t_params *params)
+void		ft_setup(t_params *params)
 {
-	char *term;
-
-	term = ft_setup2(params);
+	ft_setup2(params);
 	params->pos = 1;
 	params->selected = NULL;
 	params->reverse_v = tgetstr("mr", NULL);
@@ -67,13 +64,13 @@ void	ft_setup(t_params *params)
 		&& params->s_underline && params->e_underline
 		&& params->hide_cursor && params->show_cursor))
 	{
-		ft_printf_fd(2, "cannot get Terminal: %s capabilities\n", term);
+		ft_putendl_fd("cannot get Terminal Capabilities", 2);
 		exit(1);
 	}
 	tputs(params->hide_cursor, 1, ft_put);
 }
 
-void	ft_fill(t_params *params, char **argv, int argc)
+void		ft_fill(t_params *params, char **argv, int argc)
 {
 	t_list *lst;
 	t_elem *elem;

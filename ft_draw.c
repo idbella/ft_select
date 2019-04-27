@@ -6,13 +6,13 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:00:44 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/27 14:41:27 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/27 20:40:17 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-void		ft_helper(t_params *params, t_list *list, t_elem *elem, int i)
+static void	ft_helper(t_params *params, t_list *list, t_elem *elem, int i)
 {
 	if (i == params->pos)
 	{
@@ -21,7 +21,7 @@ void		ft_helper(t_params *params, t_list *list, t_elem *elem, int i)
 	}
 	if (elem->selected)
 		tputs(params->reverse_v, 1, ft_put);
-	ft_printf_fd(2, "%s", elem->name);
+	ft_putstr_fd(elem->name, 2);
 	if (i == params->pos)
 		tputs(params->e_underline, 1, ft_put);
 	if (elem->selected)
@@ -47,11 +47,11 @@ static void	ft_print2(t_params *params)
 		if (counter == params->rows)
 		{
 			if (list->next)
-				ft_printf_fd(2, "\n");
+				ft_putchar_fd('\n', 2);
 			counter = 0;
 		}
 		else
-			ft_printf_fd(2, "    ");
+			ft_putstr_fd("    ", 2);
 		counter++;
 		list = list->next;
 	}
@@ -79,7 +79,7 @@ void		ft_draw(t_params *params)
 	tputs(params->clear, 1, ft_put);
 	if (ft_init_draw(params))
 	{
-		ft_printf_fd(2, "window is too small\n");
+		ft_putendl_fd("window is too small", 2);
 		return ;
 	}
 	ft_print2(params);

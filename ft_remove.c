@@ -6,13 +6,13 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 19:56:51 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/26 22:15:22 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/27 20:39:42 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-void	ft_delete(t_params *params, t_list *list, t_list **new, int i)
+static void	ft_delete(t_params *params, t_list *list, t_list **new, int i)
 {
 	t_elem	*elem;
 	t_list	*node;
@@ -32,7 +32,7 @@ void	ft_delete(t_params *params, t_list *list, t_list **new, int i)
 	}
 }
 
-void	ft_remove(t_params *params)
+void		ft_remove(t_params *params)
 {
 	t_list	*list;
 	t_list	*new;
@@ -42,6 +42,8 @@ void	ft_remove(t_params *params)
 	i = 1;
 	new = NULL;
 	list = params->list;
+	if (ft_init_draw(params))
+		return ;
 	while (list)
 	{
 		ft_delete(params, list, &new, i);

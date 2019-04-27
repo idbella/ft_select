@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:03:42 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/26 22:26:42 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/27 18:00:58 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	ft_print(t_params *params)
 		if (elem->selected)
 		{
 			if (prev)
-				ft_printf_fd(1, " ");
-			ft_printf_fd(1, "%s", elem->name);
+				ft_putchar(' ');
+			ft_putstr(elem->name);
 			prev = 1;
 		}
 		list = list->next;
