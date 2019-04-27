@@ -19,6 +19,7 @@ void	ft_delete(t_params *params, t_list *list, t_list **new, int i)
 
 	if (i == params->pos)
 	{
+		params->pos = params->pos > 1 ? params->pos - 1 : 1;
 		elem = (t_elem *)list->content;
 		free(elem->name);
 		free(elem);
@@ -51,6 +52,5 @@ void	ft_remove(t_params *params)
 	}
 	if (!new)
 		ft_exit(params);
-	params->pos = 1;
 	params->list = ft_lstrev(new);
 }
