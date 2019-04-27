@@ -70,4 +70,6 @@ void					ft_print(t_params *params);
 void					ft_fill(t_params *params, char **argv);
 void					ft_catch(int sig);
 void					ft_free(t_params *params);
+void					ft_move(t_params *params, int key);
+int						ft_init_draw(t_params *params);
 #endif

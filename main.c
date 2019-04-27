@@ -59,20 +59,9 @@ void	ft_select(t_params *params, int c)
 	t_elem	*elem;
 
 	count = ft_lstcount(params->list);
-	if (c == C_UP)
-		params->pos--;
-	else if (c == C_DOWN)
-		params->pos++;
-	else if (c == ' ')
-	{
-		elem = (t_elem *)params->selected->content;
-		elem->selected = !elem->selected;
-		if (elem->selected)
-			params->pos++;
-		ft_draw(params);
-	}
-	else
+	if (!(c == C_UP || c == C_DOWN || c == C_LEFT || c == C_RIGHT))
 		return ;
+	ft_move(params, c);
 	if (params->pos > count)
 		params->pos = 1;
 	else if (params->pos < 1)

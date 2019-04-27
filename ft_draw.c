@@ -76,7 +76,6 @@ int			ft_init_draw(t_params *params)
 	if (params->bigelem > size.width)
 		params->bigelem = size.width;
 	params->rows = ft_rows(params->list, count, size.width, size.height);
-	ft_reset(params);
 	req_size = count / params->rows;
 	req_size += (count % params->rows) ? 1 : 0;
 	return (req_size > size.height);
@@ -89,5 +88,6 @@ void		ft_draw(t_params *params)
 		ft_printf_fd(2, "window is too small\n");
 		return ;
 	}
+	ft_reset(params);
 	ft_print2(params);
 }
