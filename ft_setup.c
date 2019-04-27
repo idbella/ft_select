@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 19:41:23 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/26 22:49:17 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/27 12:02:46 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	ft_setup(t_params *params)
 	params->e_underline = tgetstr("ue", NULL);
 	params->hide_cursor = tgetstr("vi", NULL);
 	params->show_cursor = tgetstr("ve", NULL);
+	params->clear = tgetstr("cl", NULL);
 	if (!(params->reverse_v && params->stop_v
 		&& params->window && params->endwindow
 		&& params->s_underline && params->e_underline
@@ -68,6 +69,7 @@ void	ft_setup(t_params *params)
 		ft_printf_fd(2, "cannot get Terminal: %s capabilities\n", term);
 		exit(0);
 	}
+	tputs(params->hide_cursor, 1, ft_put);
 }
 
 void	ft_fill(t_params *params, char **argv)

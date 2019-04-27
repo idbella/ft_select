@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_draw2.c                                         :+:      :+:    :+:   */
+/*   ft_draw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:00:44 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/26 23:14:50 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/27 12:15:56 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
-
-static void	ft_reset(t_params *params)
-{
-	tputs(params->endwindow, 1, ft_put);
-	tputs(params->window, 1, ft_put);
-	tputs(params->hide_cursor, 1, ft_put);
-}
 
 void		ft_helper(t_params *params, t_list *list, t_elem *elem, int i)
 {
@@ -68,7 +61,6 @@ int			ft_init_draw(t_params *params)
 {
 	t_size	size;
 	int		count;
-	int		req_size;
 
 	params->bigelem = ft_bigelem(params->list);
 	ft_getsize(&size);
@@ -76,18 +68,18 @@ int			ft_init_draw(t_params *params)
 	if (params->bigelem > size.width)
 		params->bigelem = size.width;
 	params->rows = ft_rows(params->list, count, size.width, size.height);
-	req_size = count / params->rows;
-	req_size += (count % params->rows) ? 1 : 0;
-	return (req_size > size.height);
+	params->height = count / params->rows;
+	params->height += (count % params->rows) ? 1 : 0;
+	return (params->height > size.height);
 }
 
 void		ft_draw(t_params *params)
 {
+	tputs(params->clear, 1, ft_put);
 	if (ft_init_draw(params))
 	{
 		ft_printf_fd(2, "window is too small\n");
 		return ;
 	}
-	ft_reset(params);
 	ft_print2(params);
 }

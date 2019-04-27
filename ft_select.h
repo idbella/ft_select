@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 19:54:17 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/26 22:58:08 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/27 12:18:28 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct			s_params
 	char		*endwindow;
 	char		*hide_cursor;
 	char		*show_cursor;
+	char		*clear;
 	t_termios	term;
 	t_list		*selected;
 }						t_params;
@@ -70,6 +71,6 @@ void					ft_print(t_params *params);
 void					ft_fill(t_params *params, char **argv);
 void					ft_catch(int sig);
 void					ft_free(t_params *params);
-void					ft_move(t_params *params, int key);
+void					ft_move(t_params *params, int key, int count);
 int						ft_init_draw(t_params *params);
 #endif

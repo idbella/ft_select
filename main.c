@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 19:54:05 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/26 22:23:02 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/27 12:18:20 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_select(t_params *params, int c)
 	count = ft_lstcount(params->list);
 	if (!(c == C_UP || c == C_DOWN || c == C_LEFT || c == C_RIGHT || c == ' '))
 		return ;
-	ft_move(params, c);
+	ft_move(params, c, count);
 	if (params->pos > count)
 		params->pos = 1;
 	else if (params->pos < 1)
