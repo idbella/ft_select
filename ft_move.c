@@ -18,11 +18,25 @@ void ft_move(t_params *params, int c)
 
     if (!ft_init_draw(params))
         return ;
-    if (c == C_UP && params->rows == 1)
-		params->pos--;
-	else if (c == C_DOWN && params->rows == 1)
-		params->pos++;
-	else if (c == ' ')
+    if (c == C_UP)
+    {
+        if (params->rows == 1)
+            params->pos--;
+        else
+        {
+            params->pos -= params->rows;
+        }
+	}
+    else if (c == C_DOWN)
+    {
+        if (params->rows == 1)
+            params->pos++;
+        else
+        {
+            params->pos += params->rows;
+        }
+	}
+    else if (c == ' ')
 	{
 		elem = (t_elem *)params->selected->content;
 		elem->selected = !elem->selected;

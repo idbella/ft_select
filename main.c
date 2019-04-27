@@ -58,7 +58,7 @@ void	ft_select(t_params *params, int c)
 	int		count;
 
 	count = ft_lstcount(params->list);
-	if (!(c == C_UP || c == C_DOWN || c == C_LEFT || c == C_RIGHT))
+	if (!(c == C_UP || c == C_DOWN || c == C_LEFT || c == C_RIGHT || c == ' '))
 		return ;
 	ft_move(params, c);
 	if (params->pos > count)
