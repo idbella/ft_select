@@ -63,7 +63,6 @@ void	ft_getchar(t_printf_params *param)
 	char	*str;
 	char	*tmp;
 
-	flag = 0;
 	str = (char *)ft_strnew(1);
 	str[0] = (char)va_arg(param->list, int);
 	str[1] = '\0';
