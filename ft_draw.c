@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:00:44 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/27 12:15:56 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/27 14:41:27 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int			ft_init_draw(t_params *params)
 
 void		ft_draw(t_params *params)
 {
+	tputs(params->window, 1, ft_put);
 	tputs(params->clear, 1, ft_put);
 	if (ft_init_draw(params))
 	{

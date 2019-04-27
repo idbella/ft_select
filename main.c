@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 19:54:05 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/27 12:18:20 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/27 16:04:46 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int		main(int argc, char **argv)
 		exit(0);
 	params = &g_params;
 	ft_setup(params);
-	ft_fill(params, argv + 1);
-	key = 0;
+	ft_fill(params, argv, argc - 1);
 	ft_draw(params);
+	key = 0;
 	while (read(0, &key, 3))
 	{
 		if (key == 127 || key == DELETE_KEY)

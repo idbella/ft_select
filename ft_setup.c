@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 19:41:23 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/27 12:02:46 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/27 15:45:10 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	*ft_setup2(t_params *params)
 	signal(SIGWINCH, ft_catch);
 	signal(SIGCONT, ft_catch);
 	signal(SIGINT, ft_catch);
+	signal(SIGTSTP, ft_catch);
 	if (!(term = getenv("TERM")))
 	{
 		ft_printf_fd(2, "TERM variable not set");
@@ -67,26 +68,25 @@ void	ft_setup(t_params *params)
 		&& params->hide_cursor && params->show_cursor))
 	{
 		ft_printf_fd(2, "cannot get Terminal: %s capabilities\n", term);
-		exit(0);
+		exit(1);
 	}
 	tputs(params->hide_cursor, 1, ft_put);
 }
 
-void	ft_fill(t_params *params, char **argv)
+void	ft_fill(t_params *params, char **argv, int argc)
 {
 	t_list *lst;
 	t_elem *elem;
 
 	params->list = NULL;
-	while (*argv)
+	while (argc > 0)
 	{
 		elem = (t_elem *)malloc(sizeof(t_elem));
-		elem->name = ft_strdup(*argv);
+		elem->name = ft_strdup(argv[argc]);
 		elem->selected = 0;
 		lst = ft_lstnew(NULL, 0);
 		lst->content = elem;
 		ft_lstadd(&params->list, lst);
-		argv++;
+		argc--;
 	}
-	params->list = ft_lstrev(params->list);
 }
