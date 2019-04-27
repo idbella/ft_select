@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 19:41:23 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/27 20:41:34 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/27 22:20:56 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,15 @@ static void	ft_setup2(t_params *params)
 {
 	char			*term;
 	char			buff[2048];
+	int				sig;
 
-	signal(SIGWINCH, ft_catch);
-	signal(SIGCONT, ft_catch);
-	signal(SIGINT, ft_catch);
-	signal(SIGTSTP, ft_catch);
+	sig = 1;
+	while (sig <= 32)
+	{
+		if (sig != SIGCHLD && sig != SIGIO && sig != SIGINFO && sig != SIGURG)
+			signal(sig, ft_catch);
+		sig++;
+	}
 	if (!(term = getenv("TERM")))
 	{
 		ft_putendl_fd("TERM variable not set", 2);
