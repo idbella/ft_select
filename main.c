@@ -56,7 +56,6 @@ int		ft_rows(t_list *list, int count, int width, int height)
 void	ft_select(t_params *params, int c)
 {
 	int		count;
-	t_elem	*elem;
 
 	count = ft_lstcount(params->list);
 	if (!(c == C_UP || c == C_DOWN || c == C_LEFT || c == C_RIGHT))

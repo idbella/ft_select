@@ -12,9 +12,11 @@
 
 #include "ft_select.h"
 
-void ft_move(t_params *params, int key)
+void ft_move(t_params *params, int c)
 {
-    if (!ft_init_draw())
+	t_elem	*elem;
+
+    if (!ft_init_draw(params))
         return ;
     if (c == C_UP && params->rows == 1)
 		params->pos--;
