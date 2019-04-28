@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 19:54:05 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/27 20:27:35 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/28 15:57:33 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		ft_rows(t_list *list, int count, int width, int height)
 	rows = 1;
 	if (count > height)
 	{
-		rows = width / (bigelem + 4);
+		rows = (width + 4) / (bigelem + 4);
 	}
 	return (rows ? rows : 1);
 }
@@ -77,7 +77,7 @@ int		main(int argc, char **argv)
 		exit(0);
 	params = &g_params;
 	ft_setup(params);
-	ft_fill(params, argv, argc - 1);
+	ft_fill(params, argv + 1);
 	ft_draw(params);
 	key = 0;
 	while (read(0, &key, 3))

@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:26:27 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/27 22:38:17 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/28 15:19:01 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void		ft_catch(int sig)
 	}
 	else if (sig == SIGTSTP)
 	{
-		ft_reset(&g_params);
 		signal(SIGTSTP, SIG_DFL);
 		ioctl(0, TIOCSTI, "\032");
+		ft_reset(&g_params);
 	}
 	else if (sig != SIGTTIN && sig != SIGTTOU && sig != SIGWINCH)
 	{

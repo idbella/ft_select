@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 19:54:17 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/27 20:27:29 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/28 15:57:26 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int						ft_bigelem(t_list *list);
 void					ft_getsize(t_size *size);
 void					ft_draw(t_params *params);
 void					ft_print(t_params *params);
-void					ft_fill(t_params *params, char **argv, int argc);
+void					ft_fill(t_params *params, char **argv);
 void					ft_catch(int sig);
 void					ft_free(t_params *params);
 void					ft_move(t_params *params, int key, int count);

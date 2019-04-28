@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 19:41:23 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/27 22:20:56 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/28 15:57:00 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,20 @@ void		ft_setup(t_params *params)
 	tputs(params->hide_cursor, 1, ft_put);
 }
 
-void		ft_fill(t_params *params, char **argv, int argc)
+void		ft_fill(t_params *params, char **argv)
 {
 	t_list *lst;
 	t_elem *elem;
 
 	params->list = NULL;
-	while (argc > 0)
+	while (*argv)
 	{
 		elem = (t_elem *)malloc(sizeof(t_elem));
-		elem->name = ft_strdup(argv[argc]);
+		elem->name = ft_strdup(*argv);
 		elem->selected = 0;
 		lst = ft_lstnew(NULL, 0);
 		lst->content = elem;
 		ft_lstadd(&params->list, lst);
-		argc--;
+		argv++;
 	}
 }
