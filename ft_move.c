@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 19:56:51 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/27 20:41:05 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/04/28 22:16:25 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,21 @@ static void	ft_move_up(t_params *params, int count)
 {
 	int old_pos;
 
-	if (params->rows == 1)
+	if (params->columns == 1)
 		params->pos--;
 	else
 	{
 		old_pos = params->pos;
-		params->pos -= params->rows;
+		params->pos -= params->columns;
 		if (params->pos <= 0 && old_pos != 1)
 		{
-			params->pos = ((params->height - 1) * params->rows) + old_pos - 1;
+			params->pos =
+				((params->height - 1) * params->columns) + old_pos - 1;
 			if (params->pos > count)
-				params->pos -= params->rows;
+				params->pos -= params->columns;
 		}
 		else if (old_pos == 1)
-			params->pos = (count / params->rows) * params->rows;
+			params->pos = (count / params->columns) * params->columns;
 	}
 }
 
@@ -37,28 +38,28 @@ static void	ft_move_down(t_params *params, int count)
 {
 	int old_pos;
 
-	if (params->rows == 1)
+	if (params->columns == 1)
 		params->pos++;
 	else
 	{
 		old_pos = params->pos;
-		params->pos += params->rows;
+		params->pos += params->columns;
 		if (params->pos > count)
 		{
-			params->pos = params->pos % params->rows + 1;
+			params->pos = params->pos % params->columns + 1;
 		}
 	}
 }
 
 static void	ft_move_left(t_params *params)
 {
-	if (params->rows > 1)
+	if (params->columns > 1)
 		params->pos--;
 }
 
 static void	ft_move_right(t_params *params)
 {
-	if (params->rows > 1)
+	if (params->columns > 1)
 		params->pos++;
 }
 

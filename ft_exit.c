@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 19:59:03 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/26 21:28:13 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/05/11 22:44:29 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ void	ft_free(t_params *params)
 
 void	ft_exit(t_params *params)
 {
-	tputs(params->endwindow, 1, ft_put);
+	tputs(params->clear, 1, ft_put);
 	tputs(params->show_cursor, 1, ft_put);
+	tputs(params->endwindow, 1, ft_put);
 	tcsetattr(0, TCSANOW, &params->term);
 	exit(0);
 }

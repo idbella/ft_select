@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 19:41:23 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/28 15:57:00 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/05/11 22:41:45 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,41 @@ void		ft_config(t_params *params)
 {
 	struct termios	termio;
 
-	tcgetattr(0, &termio);
+	if (tcgetattr(0, &termio) == -1)
+	{
+		ft_putendl("cannot get Terminal attributs");
+		exit(0);
+	}
 	tcgetattr(0, &params->term);
-	termio.c_lflag = ~ICANON & termio.c_lflag;
-	termio.c_lflag = ~ECHO & termio.c_lflag;
+	termio.c_lflag &= ~ICANON;
+	termio.c_lflag &= ~ECHO;
 	tcsetattr(0, TCSANOW, &termio);
+}
+
+static void	ft_catch(void)
+{
+	int sig;
+
+	sig = 1;
+	while (sig <= 31)
+	{
+		if (sig != SIGCHLD && sig != SIGIO && sig != SIGINFO && sig != SIGURG)
+		{
+			signal(sig, ft_catch_to_cleanup);
+		}
+		sig++;
+	}
+	signal(SIGWINCH, ft_catch_sigwin_change);
+	signal(SIGTSTP, ft_catch_sig_stp);
+	signal(SIGCONT, ft_catch_sig_cont);
 }
 
 static void	ft_setup2(t_params *params)
 {
 	char			*term;
 	char			buff[2048];
-	int				sig;
 
-	sig = 1;
-	while (sig <= 32)
-	{
-		if (sig != SIGCHLD && sig != SIGIO && sig != SIGINFO && sig != SIGURG)
-			signal(sig, ft_catch);
-		sig++;
-	}
+	ft_catch();
 	if (!(term = getenv("TERM")))
 	{
 		ft_putendl_fd("TERM variable not set", 2);

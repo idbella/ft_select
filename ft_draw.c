@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:00:44 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/28 14:35:44 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/05/11 23:26:37 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ static void	ft_print2(t_params *params)
 	{
 		elem = (t_elem *)list->content;
 		ft_helper(params, list, elem, i);
-		if (params->rows > 1)
+		if (params->columns > 1)
 			ft_printpadding(ft_strlen(elem->name), params->bigelem);
-		if (counter == params->rows)
+		if (counter == params->columns)
 		{
 			if (list->next)
 				ft_putchar_fd('\n', 2);
 			counter = 0;
 		}
 		else
-			ft_putstr_fd("    ", 2);
+			ft_putstr_fd("  ", 2);
 		counter++;
 		list = list->next;
 	}
@@ -65,11 +65,9 @@ int			ft_init_draw(t_params *params)
 	params->bigelem = ft_bigelem(params->list);
 	ft_getsize(&size);
 	count = ft_req_lines(params, size.width);
-	if (params->bigelem > size.width)
-		params->bigelem = size.width;
-	params->rows = ft_rows(params->list, count, size.width, size.height);
-	params->height = count / params->rows;
-	params->height += (count % params->rows) ? 1 : 0;
+	params->columns = ft_columns(params->list, count, &size);
+	params->height = count / params->columns;
+	params->height += (count % params->columns) ? 1 : 0;
 	return (params->height > size.height);
 }
 

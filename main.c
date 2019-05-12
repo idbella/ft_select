@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 19:54:05 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/04/28 15:57:33 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/05/11 23:26:19 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,18 @@ int		ft_bigelem(t_list *list)
 	return (bigger);
 }
 
-int		ft_rows(t_list *list, int count, int width, int height)
+int		ft_columns(t_list *list, int count, t_size *size)
 {
-	int rows;
+	int columns;
 	int bigelem;
 
 	bigelem = ft_bigelem(list);
-	rows = 1;
-	if (count > height)
+	columns = 1;
+	if (count > size->height)
 	{
-		rows = (width + 4) / (bigelem + 4);
+		columns = size->width / (bigelem + 2);
 	}
-	return (rows ? rows : 1);
+	return (columns ? columns : 1);
 }
 
 void	ft_select(t_params *params, int c)
@@ -80,7 +80,7 @@ int		main(int argc, char **argv)
 	ft_fill(params, argv + 1);
 	ft_draw(params);
 	key = 0;
-	while (read(0, &key, 3))
+	while (read(0, &key, 4))
 	{
 		if (key == 127 || key == DELETE_KEY)
 		{
